@@ -2,7 +2,7 @@
 
 namespace JorisRos\FileStorage;
 
-use JorisRos\FileStorage\Interfaces\TransportInterface;
+use JorisRos\FileStorage\TransportInterface;
 
 /**
  * Class FileStorageService
