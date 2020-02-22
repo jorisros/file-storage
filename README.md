@@ -15,7 +15,7 @@ and add there a PSR compatible logger. And configure the base directory where th
 
 ```php
 $parameters = [
-    'baseDirectory' => $tempDirectory
+    'baseDirectory' => '/tmp'
 ];
 
 $transport = new \JorisRos\FileStorage\Transport\LocaleFile($parameters, $logger);
