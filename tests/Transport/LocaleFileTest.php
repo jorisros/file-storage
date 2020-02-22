@@ -24,7 +24,7 @@ class LocaleFileTest extends TestCase
         $tempDirectory = sys_get_temp_dir();
 
         $this->assertTrue(is_dir($tempDirectory));
-        
+
         $localFileTransport = new LocaleFile([
             'baseDirectory' => $tempDirectory
         ], $this->getLogMock());
@@ -61,6 +61,26 @@ class LocaleFileTest extends TestCase
         $this->assertEquals('Temp content', $data);
     }
 
+    public function testGetList()
+    {
+        $localFileTransport = new LocaleFile([
+            'baseDirectory' => __DIR__ . '/../../testdir'
+        ], $this->getLogMock());
+
+        mkdir(__DIR__ . '/../../testdir');
+        for ($i = 0; $i < 10; $i++) {
+            touch(__DIR__ . '/../../testdir/testfile_' . $i);
+        }
+        $listOfFiles = $localFileTransport->getList();
+        $this->assertIsArray($listOfFiles);
+
+        foreach ($listOfFiles as $file) {
+            $this->assertNotEquals(".", $file);
+            $this->assertNotEquals("..", $file);
+        }
+        $this->assertCount(10, $listOfFiles);
+    }
+
     public function tearDown(): void
     {
         $tempFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'phpunit' . DIRECTORY_SEPARATOR . 'testfile';
@@ -72,5 +92,24 @@ class LocaleFileTest extends TestCase
         if (file_exists($tempFile)) {
             unlink($tempFile);
         }
+
+        $this->removeDirectory(__DIR__ . '/../../testdir');
+    }
+
+    private function removeDirectory($path)
+    {
+        if (!file_exists($path)) {
+            return;
+        }
+
+        $files = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $path) . '/{,.}*', GLOB_BRACE);
+        foreach ($files as $file) {
+            if ($file == $path . '/.' || $file == $path . '/..') {
+                continue;
+            } // skip special dir entries
+            is_dir($file) ? $this->removeDirectory($file) : unlink($file);
+        }
+        rmdir($path);
+        return;
     }
 }

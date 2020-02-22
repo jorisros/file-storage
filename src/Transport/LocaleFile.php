@@ -50,4 +50,35 @@ class LocaleFile implements TransportInterface
 
         return $path;
     }
+
+    public function getList(): array
+    {
+        $files = [];
+        foreach (scandir($this->baseDirectory) as $file) {
+            if (!$this->isValidFile($file)) {
+                continue;
+            }
+
+            $files[] = $file;
+        }
+
+        return $files;
+    }
+
+    private function isValidFile(string $file): bool
+    {
+        if ($file === '.') {
+            return false;
+        }
+
+        if ($file === '..') {
+            return false;
+        }
+
+        if (is_dir($this->baseDirectory . DIRECTORY_SEPARATOR . $file)) {
+            return false;
+        }
+
+        return true;
+    }
 }

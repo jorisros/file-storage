@@ -11,4 +11,6 @@ interface TransportInterface
     public function getFileContent(string $location);
 
     public function setFileContent(string $location, $data): string;
+
+    public function getList(): array;
 }
