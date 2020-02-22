@@ -1,7 +1,7 @@
 {
-    "name": "jorisros/library-boilerplate",
-    "description": "This is a boilerplate for creating new libraries.",
-    "type": "project",
+    "name": "jorisros/file-storage",
+    "description": "Library for the storage of files in the cloud",
+    "type": "library",
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
         "phpunit/phpunit": "^8.5"
