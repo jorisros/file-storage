@@ -24,8 +24,7 @@ class LocaleFileTest extends TestCase
         $tempDirectory = sys_get_temp_dir();
 
         $this->assertTrue(is_dir($tempDirectory));
-        $tempDirectory = $tempDirectory . DIRECTORY_SEPARATOR . 'phpunit';
-
+        
         $localFileTransport = new LocaleFile([
             'baseDirectory' => $tempDirectory
         ], $this->getLogMock());
