@@ -1,4 +1,8 @@
-# FileStorage
+# [DEPRECATED] FileStorage
+This library is deprecated because of this library has extact the same functionality:
+[https://flysystem.thephpleague.com/v1/docs/](https://flysystem.thephpleague.com/v1/docs/https://www.google.com)
+
+
 This is a library to store data remote of the webserver, when working with microservices and or serverless technology
 the need for a centralized service is needed for shared files.
 This is designed for slow changing IO file activity. 
